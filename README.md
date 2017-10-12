@@ -21,3 +21,12 @@ ejs Installation
 ```
 $ npm install ejs
 ```
+# 使用的网址
+* [http://localhost:3000/](http://localhost:3000/)
+* [http://localhost:3000/users/](http://localhost:3000/users/)
+* [http://localhost:3000/users/test](http://localhost:3000/users/test)
+
+# 安装mongoose
+```
+npm install mongoose --save
+```
