@@ -17,3 +17,7 @@ Start your Express.js app at http://localhost:3000/
 ```
 npm start
 ```
+ejs Installation
+```
+$ npm install ejs
+```
