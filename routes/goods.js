@@ -22,7 +22,16 @@ router.get('/', function(req, res, next) {
 	// 	status:1,
 	// 	msg:'haha'
 	// });
-	Goods.find({}, function (err, docs) {
+	let page = +(req.param('page'));
+	let pageSize = +(req.param('pageSize'));
+	let sort = +(req.param('sort'));
+	let skip = (page-1)*pageSize;
+
+	let params = {};
+	let goodsModel = Goods.find(params).skip(skip).limit(pageSize);
+	goodsModel.sort({"salePrice":sort});
+	goodsModel.exec(function (err, docs) {
+	// Goods.find({}, function (err, docs) {
 		// docs.forEach
 		if(err){
 			res.json({

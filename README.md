@@ -30,3 +30,7 @@ $ npm install ejs
 ```
 npm install mongoose --save
 ```
+# 分页测试用例
+```$xslt
+http://localhost:3000/goods?page=1&pageSize=8&sort=1
+```
