@@ -34,3 +34,8 @@ npm install mongoose --save
 ```$xslt
 http://localhost:3000/goods?page=1&pageSize=8&sort=1
 ```
+# mongoHub查询方法
+```$xslt
+#query
+{"salePrice":{$gte:500,$lte:1000}}
+```
