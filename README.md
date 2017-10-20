@@ -29,6 +29,7 @@ $ npm install ejs
 # 安装mongoose
 ```
 npm install mongoose --save
+npm install cookie-parser
 ```
 # 分页测试用例
 ```$xslt
