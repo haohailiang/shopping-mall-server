@@ -115,7 +115,7 @@ router.post('/addCart', (req, res, next) => {
 								doc.productNum = 1;
 								doc.checked = 1;
 								userDoc.cartList.push(doc);
-								User.save((err2,doc2) => {
+								userDoc.save((err2,doc2) => {
 									if(err2){
 										res.json({
 											status:'1',
