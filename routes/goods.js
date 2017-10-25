@@ -79,7 +79,6 @@ router.post('/addCart', (req, res, next) => {
 				msg:err.message
 			});
 		}else{
-			console.log(userDoc);
 			if(userDoc){
 				let goodsItem = '';
 				userDoc.cartList.forEach(item =>{
