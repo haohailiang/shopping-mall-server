@@ -96,6 +96,26 @@ router.get("/cartList", (req,res,next) => {
 	});
 });
 
+//查询用户地址接口
+router.get("/addressList", function (req,res,next) {
+	var userId = req.cookies.userId;
+	User.findOne({userId:userId}, function (err,doc) {
+		if(err){
+			res.json({
+				status:'1',
+				msg:err.message,
+				result:''
+			});
+		}else{
+			res.json({
+				status:'0',
+				msg:'',
+				result:doc.addressList
+			});
+		}
+	})
+});
+
 router.post("/editCheckAll", function (req,res,next) {
 	var userId = req.cookies.userId,
 		checkAll = req.body.checkAll?'1':'0';
@@ -183,6 +203,82 @@ router.post("/cartDel", function (req,res,next) {
 				status:'0',
 				msg:'',
 				result:'suc'
+			});
+		}
+	});
+});
+
+//设置默认地址接口
+router.post("/setDefault", function (req,res,next) {
+	var userId = req.cookies.userId,
+		addressId = req.body.addressId;
+	if(!addressId){
+		res.json({
+			status:'1003',
+			msg:'addressId is null',
+			result:''
+		});
+	}else{
+		User.findOne({userId:userId}, function (err,doc) {
+			if(err){
+				res.json({
+					status:'1',
+					msg:err.message,
+					result:''
+				});
+			}else{
+				var addressList = doc.addressList;
+				addressList.forEach((item)=>{
+					if(item.addressId ==addressId){
+						item.isDefault = true;
+					}else{
+						item.isDefault = false;
+					}
+				});
+
+				doc.save(function (err1,doc1) {
+					if(err){
+						res.json({
+							status:'1',
+							msg:err.message,
+							result:''
+						});
+					}else{
+						res.json({
+							status:'0',
+							msg:'',
+							result:''
+						});
+					}
+				})
+			}
+		});
+	}
+});
+
+//删除地址接口
+router.post("/delAddress", function (req,res,next) {
+	var userId = req.cookies.userId,addressId = req.body.addressId;
+	User.update({
+		userId:userId
+	},{
+		$pull:{
+			'addressList':{
+				'addressId':addressId
+			}
+		}
+	}, function (err,doc) {
+		if(err){
+			res.json({
+				status:'1',
+				msg:err.message,
+				result:''
+			});
+		}else{
+			res.json({
+				status:'0',
+				msg:'',
+				result:''
 			});
 		}
 	});
