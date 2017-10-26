@@ -180,6 +180,37 @@ router.post("/cartEdit", function (req,res,next) {
 	})
 });
 
+//获得购物车数量
+router.get("/getCartCount", function (req,res,next) {
+	if(req.cookies && req.cookies.userId){
+		let userId = req.cookies.userId;
+		User.findOne({"userId":userId}, function (err,doc) {
+			if(err){
+				res.json({
+					status:"0",
+					msg:err.message
+				});
+			}else{
+				let cartList = doc.cartList;
+				let cartCount = 0;
+				cartList.map(function(item){
+					cartCount += ~~(item.productNum);
+				});
+				res.json({
+					status:"0",
+					msg:"",
+					result:cartCount
+				});
+			}
+		});
+	}else{
+		res.json({
+			status:"0",
+			msg:"当前用户不存在"
+		});
+	}
+});
+
 //购物车删除
 router.post("/cartDel", function (req,res,next) {
 	var userId = req.cookies.userId,productId = req.body.productId;
